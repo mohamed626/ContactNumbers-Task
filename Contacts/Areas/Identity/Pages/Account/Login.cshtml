@@ -1,0 +1,57 @@
+﻿@page
+@model LoginModel
+
+@{
+
+    ViewData["Title"] = "Login";
+}
+
+
+
+
+
+
+
+<div class="col-md-6  offset-md-3 " style="align-items:center; margin-top: 100px;">
+    <!-- jquery validation -->
+    <div class="card card-primary" style="direction: ltr;">
+        <div class="card-header">
+            <h3 class="card-title"> <small>Contacts</small></h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form id="account" method="post">
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Input.Email" class="form-label">User Name:</label>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Password" class="form-label">Password:</label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button id="login-submit" type="submit" class="btn btn-primary">Login</button>
+            </div>
+
+
+
+        </form>
+    </div>
+    <!-- /.card -->
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

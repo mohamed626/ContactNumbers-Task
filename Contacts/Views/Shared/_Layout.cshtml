@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+
+    <!--   =================================   -->
+    @*DataTable*@
+    <link href="~/lib/datatables/css/datatables.bootstrap4.css" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Default/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="~/Default/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Default/assets/libs/css/style.css">
+    <link rel="stylesheet" href="~/Default/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="~/Default/assets/vendor/charts/chartist-bundle/chartist.css">
+    <link rel="stylesheet" href="~/Default/assets/vendor/charts/morris-bundle/morris.css">
+    <link rel="stylesheet" href="~/Default/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/Default/assets/vendor/charts/c3charts/c3.css">
+    <link rel="stylesheet" href="~/Default/assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+
+
+
+
+    <link href="~/css/parsley.css" rel="stylesheet" />
+
+    @*sweetalert2*@
+    <link href="~/sweetalert2/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
+
+
+    <!--   =================================   -->
+
+
+
+
+
+
+   @*  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Contacts.styles.css" asp-append-version="true" />
+ *@
+
+
+
+    @*sweetalert2*@
+@*     <link href="~/sweetalert2/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+ *@
+
+    @await RenderSectionAsync("styeelsheet", required: false)
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Contacts</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div dir="rtl" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                 
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - Contacts - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+    <!--   =================================   -->
+    
+    <!-- jquery 3.3.1 -->
+    <script src="~/Default/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+
+
+    @*dataTable*@
+    <script src="~/lib/datatables/js/jquery.datatables.js"></script>
+    <script src="~/lib/datatables/js/datatables.bootstrap4.js"></script>
+    <!-- Load DataTables Buttons extension CSS and JavaScript -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+
+
+    <!-- bootstap bundle js -->
+    <script src="~/Default/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- slimscroll js -->
+    <script src="~/Default/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <!-- main js -->
+    <script src="~/Default/assets/libs/js/main-js.js"></script>
+
+
+    <script src="~/js/parsley.js"></script>
+
+
+    @*sweetalert2*@
+    <script src="~/sweetalert2/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="~/sweetalert2/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/js/alerts.js"></script>
+
+    <!--   =================================   -->
+
+
+
+
+@* 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+ *@
+
+
+    @*sweetalert2*@
+@*     <script src="~/sweetalert2/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="~/sweetalert2/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/js/alerts.js"></script> *@
+ 
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

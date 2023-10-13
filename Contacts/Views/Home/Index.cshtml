@@ -1,0 +1,330 @@
+﻿@{
+    ViewBag.Title = "Contacts";
+}
+
+@* <link href="~/lib/datatables/css/datatables.bootstrap4.css" rel="stylesheet" />
+ *@
+
+
+<div id="ContactModal" class="modal col-md-12" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close ModalCloseBtn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 id="ModalHeader" class="modal-title">Add New Contact</h3>
+            </div>
+            <div class="modal-body">
+                <form id="ContactsForm">
+
+                    <input id="Id" name="Id" type="hidden" value="0" />
+                    <div class="form-group">
+                        <label id="ModalLabel1" class="col-md-3">Name</label>
+                        <div class="col-md-8">
+                            <input id="Name" type="text" class="form-control" name="Name" data-parsley-required="true" data-parsley-trigger="change" data-parsley-error-message="Name Is Required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="ModalLabel1" class="col-md-3">Phone</label>
+                        <div class="col-md-8">
+                            <input id="Phone" type="text" class="form-control" name="Phone" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="ModalLabel1" class="col-md-3">Address</label>
+                        <div class="col-md-8">
+                            <input id="Address" type="text" class="form-control" name="Address" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="ModalLabel1" class="col-md-3">Notes</label>
+                        <div class="col-md-8">
+                            <input id="Notes" type="text" class="form-control" name="Notes" />
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button onclick="addNew();" class="btn btn-success">Add</button>
+                <button type="reset" onclick="resetdata()" class="btn btn-primary">Reset</button>
+                <button id="ModalCloseBtn" type="button" class="ModalCloseBtn btn btn-secondary " data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <div class="container">
+  
+    <form id="ContactsForm">
+        
+        <input  id="Id" name="Id" type="hidden" value="0" />
+        <div class="form-group">
+            <label id="ModalLabel1" class="col-md-3">Name</label>
+            <div class="col-md-8">
+                <input id="Name" type="text" class="form-control" name="Name" data-parsley-required="true" data-parsley-trigger="change" data-parsley-error-message="هذا الحقل مطلوب" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label id="ModalLabel1" class="col-md-3">Phone</label>
+            <div class="col-md-8">
+                <input id="Phone" type="text" class="form-control" name="Phone" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label id="ModalLabel1" class="col-md-3">Address</label>
+            <div class="col-md-8">
+                <input id="Address" type="text" class="form-control" name="Address" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label id="ModalLabel1" class="col-md-3">Notes</label>
+            <div class="col-md-8">
+                <input id="Notes" type="text" class="form-control" name="Notes"/>
+            </div>
+        </div>
+       
+
+    </form>
+    <br/>
+
+    <div style="margin-left:347px;">
+        <button onclick="addNew();" class="btn btn-primary">Save</button>
+        <button type="reset" onclick="resetdata()" class="btn btn-secondary">Reset</button>
+
+    </div>
+
+
+</div>
+ *@
+
+
+
+<div class="card-body border-top" style="margin-left:130px; padding:0px;">
+
+
+
+    <button data-toggle="modal" data-target="#ContactModal" class="btn btn-primary">
+         Add Contact <i class="fas fa-user-plus"></i>
+    </button>
+
+</div>
+
+ <hr />
+<div style="width: 83%;margin-left: 142px;">
+    <h2 style="text-align:center;">All Contacts</h2>
+    <br />
+
+    <table id="contacts" class="table table-striped table-bordered dt-responsive second" style="width:100%;text-align:center;font-size:large;background-color:cornsilk">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Notes</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+        </thead>
+    </table>
+
+
+
+
+
+
+</div>
+
+@section Scripts{
+
+@*     <script src="~/lib/datatables/js/jquery.datatables.js"></script>
+    <script src="~/lib/datatables/js/datatables.bootstrap4.js"></script>
+
+ *@
+
+
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/reloadcontacts.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            LoadData();
+            $('#ContactsForm').parsley();
+
+        });
+
+        // function LoadData() {
+        //     if ($.fn.DataTable.isDataTable('#contacts')) {
+        //         $('#contacts').DataTable().destroy();
+        //     }
+        //     $('#contacts').dataTable({
+        //         "serverSide": true,
+        //         "filter": true,
+        //         "ajax": {
+        //             "url": "/api/contacts",
+        //             "type": "POST",
+        //             "datatype": "json"
+        //         },
+        //         "columnDefs": [{
+        //             "targets": [0],
+        //             "visible": false,
+        //             "searchable": false
+        //         }],
+        //         "pageLength": 5,
+        //         "columns": [
+        //             { "data": "id", "name": "Id", "autowidth": true },
+        //             { "data": "name", "name": "Name", "autowidth": true },
+        //             { "data": "phone", "name": "Phone", "autowidth": true },
+        //             { "data": "address", "name": "Address", "autowidth": true },
+        //             { "data": "notes", "name": "Notes", "autowidth": true },
+        //             {
+
+        //                 "render": function (data, type, row) { return "<a href='#' class='btn btn-success' onclick='EditContact(" + JSON.stringify(row) + ");' > Edit </a>" },
+        //                 "orderable": false
+        //             },
+        //             {
+        //                 "render": function (data, type, row) { return '<a href="#" class="btn btn-danger" onclick=DeleteContactConfirmation("' + row.id + '"); > Delete </a>' },
+        //                 "orderable": false
+        //             },
+
+        //         ]
+        //     });
+        
+        // }
+
+
+        function addNew() {
+
+
+            $('#ContactsForm').parsley().validate();
+            if ($('#ContactsForm').parsley().isValid() == false) {
+                event.preventDefault();
+
+                return;
+            }
+
+            var formData = $('#ContactsForm').serializeArray();
+            var data = {};
+            formData.forEach(function (item) {
+                data[item.name] = item.value;
+            });
+
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                type: "POST",
+                url: '/api/Contacts/AddEditContact',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                success: function (result) {
+                    resetdata();
+                    $("#ContactModal").modal("hide");
+
+                    SuccessAutoCloseAlert('تم الحفظ بنجاح');
+                    // LoadData();
+                    // Notify clients using SignalR
+                    connection.invoke("DataChanged").catch(function (err) {
+                        console.error(err.toString());
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                    ErrorAutoCloseAlert('لم يتم الحفظ');
+
+                }
+            });
+        }
+
+
+
+        function DeleteContactConfirmation(contactId){
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this data!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    DeleteContact(contactId);
+                }
+            });
+        }
+
+        function DeleteContact(contactId) {
+            debugger;
+            $.ajax({
+                url: '/api/Contacts/DeleteContact?contactId=' + contactId,
+                type: 'DELETE',
+                contentType: 'application/json',
+                success: function (response) {
+                    debugger;
+                    SuccessAutoCloseAlert('تم الحذف بنجاح');
+                    resetdata();
+                    // Notify clients using SignalR
+                    connection.invoke("DataChanged").catch(function (err) {
+                        console.error(err.toString());
+                    });
+                },
+                error: function () {
+                    Swal.fire('Error', 'An error occurred while deleting data.', 'error');
+                }
+            });
+        }
+
+
+        function EditContact(contact)
+        {
+            debugger;
+            console.log(contact);
+            $("#ContactsForm  #Id").val(contact.id);
+            $("#ContactsForm  #Name").val(contact.name);
+            $("#ContactsForm  #Phone").val(contact.phone);
+            $("#ContactsForm  #Address").val(contact.address);
+            $("#ContactsForm  #Notes").val(contact.notes);
+        }
+
+
+        function resetdata() {
+            var form = document.getElementById('ContactsForm');
+            form.reset();
+
+            // Reset Parsley validation
+            $(form).parsley().reset();
+            $(form).parsley().destroy();
+
+            // Remove error messages
+            $('.parsley-errors-list').remove();
+            $('.parsley-error').removeClass('parsley-error');
+
+
+            $("#ContactsForm  #Id").val(0);
+            $("#ContactsForm  #Name").val('');
+            $("#ContactsForm  #Phone").val('');
+            $("#ContactsForm  #Address").val('');
+            $("#ContactsForm  #Notes").val('');
+        };
+
+
+        $('#ContactModal').on('hidden.bs.modal', function () {
+            resetdata();
+
+        });
+    </script>
+}
